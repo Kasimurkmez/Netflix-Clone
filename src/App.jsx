@@ -1,10 +1,11 @@
+import { Route, Routes } from "react-router-dom";
 import Navbar from "./components/Navbar";
-import { Routes, Route } from "react-router-dom";
+import { AuthContextProvider } from "./context/AuthContext";
 import Home from "./pages/Home";
-import { AuthContextProvider } from "./context/Authcontext";
-import Account from "./pages/Account";
-import SignUp from "./pages/SignUp";
 import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import Account from "./pages/Account";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -14,8 +15,15 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signup" element={<Account />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route
+            path="/account"
+            element={
+              <ProtectedRoute>
+                <Account />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
       </AuthContextProvider>
     </>
